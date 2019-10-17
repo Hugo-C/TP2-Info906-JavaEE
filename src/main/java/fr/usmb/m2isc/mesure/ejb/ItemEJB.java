@@ -25,8 +25,8 @@ public class ItemEJB {
 	public ItemEJB() {
 	}
 
-	public Item addItem(String name, Date creationDate, int priority, int estimation, String description) {
-		Item m = new Item(name, creationDate, priority, estimation, description);
+	public Item addItem(String name, int priority, int estimation, String description) {
+		Item m = new Item(name, priority, estimation, description);
 		em.persist(m);
 		return m;
 	}

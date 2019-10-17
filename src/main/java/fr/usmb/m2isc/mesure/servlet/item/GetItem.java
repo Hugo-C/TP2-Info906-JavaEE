@@ -1,4 +1,4 @@
-package fr.usmb.m2isc.mesure.servlet;
+package fr.usmb.m2isc.mesure.servlet.item;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import fr.usmb.m2isc.mesure.jpa.Item;
 /**
  * Servlet implementation class AddMesureServlet
  */
-@WebServlet("/ShowPackageServlet")
-public class ShowPackageServlet extends HttpServlet {
+@WebServlet("/GetItem")
+public class GetItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// injection de la reference de l'ejb
@@ -26,7 +26,7 @@ public class ShowPackageServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowPackageServlet() {
+    public GetItem() {
         super();
     }
 

@@ -1,11 +1,8 @@
 package fr.usmb.m2isc.mesure.jpa;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * TODO JAVADOC
@@ -26,18 +23,17 @@ public class Item implements Serializable {
 	private int priority;
 	private int estimation;
 	private String description;
-	private ArrayList<String> comments;
+//	private ArrayList<String> comments;  // TODO handle comments
 
 	public Item() {
 	}
 	
-	public Item(String name, Date creationDate, int priority, int estimation, String description) {
+	public Item(String name, int priority, int estimation, String description) {
 		this.name = name;
-		this.creationDate = creationDate;
 		this.priority = priority;
 		this.estimation = estimation;
 		this.description = description;
-		this.comments = new ArrayList<String>();
+		this.creationDate = new Date();
 	}
 
 	public String getName() {
@@ -78,14 +74,6 @@ public class Item implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public ArrayList<String> getComments() {
-		return comments;
-	}
-
-	public void setComments(ArrayList<String> comments) {
-		this.comments = comments;
 	}
 
 	public long getId() {

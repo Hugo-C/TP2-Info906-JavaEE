@@ -1,4 +1,4 @@
-package fr.usmb.m2isc.mesure.servlet;
+package fr.usmb.m2isc.mesure.servlet.item;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import fr.usmb.m2isc.mesure.jpa.Item;
 /**
  * Servlet implementation class AddMesureServlet
  */
-@WebServlet("/AddPackageServlet")
-public class AddPackageServlet extends HttpServlet {
+@WebServlet("/AddItem")
+public class AddItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// injection de la reference de l'ejb
@@ -26,7 +26,7 @@ public class AddPackageServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddPackageServlet() {
+    public AddItem() {
         super();
     }
 
@@ -35,22 +35,15 @@ public class AddPackageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// recuperation et parsing des parametres de la requete
-		double weight = Double.parseDouble(request.getParameter("weight"));
-		double val = Double.parseDouble(request.getParameter("val"));
-		double latOrigin = Double.parseDouble(request.getParameter("latOrigin"));
-		double longOrigin = Double.parseDouble(request.getParameter("longOrigin"));
-		String localityOrigin = request.getParameter("localityOrigin");
-		double latDest = Double.parseDouble(request.getParameter("latDest"));
-		double longDest = Double.parseDouble(request.getParameter("longDest"));
-		String localityDest = request.getParameter("localityDest");
-		Position origin = new Position(latOrigin, longOrigin, localityOrigin);
-		Position destination = new Position(latDest, longDest, localityDest);
+		String name = request.getParameter("name");
+		int priority = Integer.parseInt(request.getParameter("priority"));
+		int estimation = Integer.parseInt(request.getParameter("estimation"));
+		String description = request.getParameter("description");
+
 		// appel de la methode d'ajout sur l'ejb
-		Item p = ejb.addItem(weight, val, origin, destination);
+		Item p = ejb.addItem(name, priority, estimation, description);
 		// ajout de la mesure dans le requete
-		request.setAttribute("package",p);
-		// transfert a la JSP d'affichage
-		request.getRequestDispatcher("/showPackage.jsp").forward(request, response);
+		request.setAttribute("package", p);
 	}
 
 	/**

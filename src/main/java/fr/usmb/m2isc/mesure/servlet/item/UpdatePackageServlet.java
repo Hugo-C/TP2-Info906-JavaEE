@@ -1,4 +1,4 @@
-package fr.usmb.m2isc.mesure.servlet;
+package fr.usmb.m2isc.mesure.servlet.item;
 
 import fr.usmb.m2isc.mesure.ejb.ItemEJB;
 import fr.usmb.m2isc.mesure.jpa.Item;
@@ -36,19 +36,19 @@ public class UpdatePackageServlet extends HttpServlet {
 		// recuperation et parsing des parametres de la requete
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		String stateAsString = request.getParameter("state");
-		ProcessState state = null;
-		if (stateAsString != null && !stateAsString.isEmpty()) {
-			state = ProcessState.valueOf(stateAsString);
-		}
-		double latitude = Double.parseDouble(request.getParameter("latitude"));
-		double longitude = Double.parseDouble(request.getParameter("longitude"));
-		String name = request.getParameter("name");
+//		String stateAsString = request.getParameter("state");
+//		ProcessState state = null;
+//		if (stateAsString != null && !stateAsString.isEmpty()) {
+//			state = ProcessState.valueOf(stateAsString);
+//		}
+//		double latitude = Double.parseDouble(request.getParameter("latitude"));
+//		double longitude = Double.parseDouble(request.getParameter("longitude"));
+//		String name = request.getParameter("name");
+//
+//		Position positionRefreshed = new Position(latitude, longitude, name);
+//		Item p = ejb.updatePackage(id, positionRefreshed, state);
 
-		Position positionRefreshed = new Position(latitude, longitude, name);
-		Item p = ejb.updatePackage(id, positionRefreshed, state);
-
-		request.setAttribute("package",p);
+//		request.setAttribute("package",p);
 		request.getRequestDispatcher("/showPackage.jsp").forward(request, response);
 	}
 

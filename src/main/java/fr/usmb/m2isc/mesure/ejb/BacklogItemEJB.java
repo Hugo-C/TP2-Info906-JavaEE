@@ -23,10 +23,9 @@ public class BacklogItemEJB {
 	public BacklogItemEJB() {
 	}
 
-	public BacklogItem addBacklogItem(String name, int priority, int estimation, String description) {
-		BacklogItem m = new BacklogItem(name, priority, estimation, description);
-		em.persist(m);
-		return m;
+	public BacklogItem addBacklogItem(BacklogItem backlogItem) {
+		em.persist(backlogItem);
+		return backlogItem;
 	}
 
 	public BacklogItem findBacklogItem(long id) {

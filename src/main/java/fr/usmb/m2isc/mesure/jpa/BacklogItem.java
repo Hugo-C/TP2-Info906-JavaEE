@@ -8,7 +8,7 @@ import java.util.Date;
  * TODO JAVADOC
  */
 @Entity
-public class Item implements Serializable {
+public class BacklogItem implements Serializable {
 	/**
 	 * Identifiant de la mesure (unique).
 	 * 
@@ -25,10 +25,10 @@ public class Item implements Serializable {
 	private String description;
 //	private ArrayList<String> comments;  // TODO handle comments
 
-	public Item() {
+	public BacklogItem() {
 	}
 	
-	public Item(String name, int priority, int estimation, String description) {
+	public BacklogItem(String name, int priority, int estimation, String description) {
 		this.name = name;
 		this.priority = priority;
 		this.estimation = estimation;

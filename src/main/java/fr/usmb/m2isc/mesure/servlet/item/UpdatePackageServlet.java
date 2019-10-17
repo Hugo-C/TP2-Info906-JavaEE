@@ -1,7 +1,6 @@
 package fr.usmb.m2isc.mesure.servlet.item;
 
-import fr.usmb.m2isc.mesure.ejb.ItemEJB;
-import fr.usmb.m2isc.mesure.jpa.Item;
+import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,7 +19,7 @@ public class UpdatePackageServlet extends HttpServlet {
 
 	// injection de la reference de l'ejb
 	@EJB
-	private ItemEJB ejb;
+	private BacklogItemEJB ejb;
 
     /**
      * @see HttpServlet#HttpServlet()

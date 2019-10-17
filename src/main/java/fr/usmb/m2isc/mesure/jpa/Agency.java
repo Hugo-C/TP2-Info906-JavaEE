@@ -10,13 +10,13 @@ public class Agency {
     @GeneratedValue
     private long id;
     private String name;
-    private ArrayList<Item> backlog;
+    private ArrayList<BacklogItem> backlog;
 
     public Agency() {
     }
 
     public Agency(String name) {
         this.name = name;
-        this.backlog = new ArrayList<Item>();
+        this.backlog = new ArrayList<BacklogItem>();
     }
 }

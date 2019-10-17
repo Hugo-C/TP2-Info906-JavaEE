@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.usmb.m2isc.mesure.ejb.ItemEJB;
-import fr.usmb.m2isc.mesure.jpa.Item;
+import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
+import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 
 /**
  * Servlet implementation class AddMesureServlet
@@ -21,7 +21,7 @@ public class GetItem extends HttpServlet {
 	
 	// injection de la reference de l'ejb
 	@EJB
-	private ItemEJB ejb;
+	private BacklogItemEJB ejb;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +37,7 @@ public class GetItem extends HttpServlet {
 		// recuperation et parsing des parametres de la requete
 		long id = Long.parseLong(request.getParameter("id"));
 		// appel de l'ejb
-		Item p = ejb.findItem(id);
+		BacklogItem p = ejb.findBacklogItem(id);
 		// ajout de la mesure dans le requete
 		request.setAttribute("package",p);
 		// transfert a la JSP d'affichage

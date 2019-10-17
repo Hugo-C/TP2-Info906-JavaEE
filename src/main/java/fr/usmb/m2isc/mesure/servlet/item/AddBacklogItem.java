@@ -9,24 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.usmb.m2isc.mesure.ejb.ItemEJB;
-import fr.usmb.m2isc.mesure.jpa.Item;
+import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
+import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 
 /**
  * Servlet implementation class AddMesureServlet
  */
-@WebServlet("/AddItem")
-public class AddItem extends HttpServlet {
+@WebServlet("/AddBacklogItem")
+public class AddBacklogItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// injection de la reference de l'ejb
 	@EJB
-	private ItemEJB ejb;
+	private BacklogItemEJB ejb;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddItem() {
+    public AddBacklogItem() {
         super();
     }
 
@@ -41,7 +41,7 @@ public class AddItem extends HttpServlet {
 		String description = request.getParameter("description");
 
 		// appel de la methode d'ajout sur l'ejb
-		Item p = ejb.addItem(name, priority, estimation, description);
+		BacklogItem p = ejb.addBacklogItem(name, priority, estimation, description);
 		// ajout de la mesure dans le requete
 		request.setAttribute("package", p);
 	}

@@ -20,6 +20,10 @@ public class BacklogItemBean {
     @EJB
     BacklogItemEJB backlogItemEJB;
 
+    public BacklogItemBean() {
+        backlogItem = new BacklogItem();
+    }
+
 
     public String addBacklogItem(){
         try

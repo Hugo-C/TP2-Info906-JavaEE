@@ -25,6 +25,6 @@
 		  <input type="submit" name="valider"  value="Enregistrer">
 	  </form>
 	  <br/>
-	  <a href="index.jsp">Retour à l'acceuil</a>
+	  <a href="index.xhtml">Retour à l'acceuil</a>
 	</body>
 </html>

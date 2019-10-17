@@ -27,6 +27,6 @@
 		 Longitude : ${ package.destination.longitude } <br/>
 		 Emplacement : ${ package.destination.name } <br/><br/>
 	  </p>
-	  <a href="index.jsp" >Revenir à la page d'accueil</a>
+	  <a href="index.xhtml" >Revenir à la page d'accueil</a>
 	</body>
 </html>

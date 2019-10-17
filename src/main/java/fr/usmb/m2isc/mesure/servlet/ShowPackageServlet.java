@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.usmb.m2isc.mesure.ejb.PackageEJB;
-import fr.usmb.m2isc.mesure.jpa.Package;
+import fr.usmb.m2isc.mesure.ejb.ItemEJB;
+import fr.usmb.m2isc.mesure.jpa.Item;
 
 /**
  * Servlet implementation class AddMesureServlet
@@ -21,7 +21,7 @@ public class ShowPackageServlet extends HttpServlet {
 	
 	// injection de la reference de l'ejb
 	@EJB
-	private PackageEJB ejb;
+	private ItemEJB ejb;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +37,7 @@ public class ShowPackageServlet extends HttpServlet {
 		// recuperation et parsing des parametres de la requete
 		long id = Long.parseLong(request.getParameter("id"));
 		// appel de l'ejb
-		Package p = ejb.findPackage(id);
+		Item p = ejb.findItem(id);
 		// ajout de la mesure dans le requete
 		request.setAttribute("package",p);
 		// transfert a la JSP d'affichage

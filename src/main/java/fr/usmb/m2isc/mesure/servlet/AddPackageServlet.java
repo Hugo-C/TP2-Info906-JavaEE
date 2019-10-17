@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.usmb.m2isc.mesure.ejb.PackageEJB;
-import fr.usmb.m2isc.mesure.jpa.Package;
-import fr.usmb.m2isc.mesure.jpa.Position;
+import fr.usmb.m2isc.mesure.ejb.ItemEJB;
+import fr.usmb.m2isc.mesure.jpa.Item;
 
 /**
  * Servlet implementation class AddMesureServlet
@@ -22,7 +21,7 @@ public class AddPackageServlet extends HttpServlet {
 	
 	// injection de la reference de l'ejb
 	@EJB
-	private PackageEJB ejb;
+	private ItemEJB ejb;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,7 +46,7 @@ public class AddPackageServlet extends HttpServlet {
 		Position origin = new Position(latOrigin, longOrigin, localityOrigin);
 		Position destination = new Position(latDest, longDest, localityDest);
 		// appel de la methode d'ajout sur l'ejb
-		Package p = ejb.addPackage(weight, val, origin, destination);
+		Item p = ejb.addItem(weight, val, origin, destination);
 		// ajout de la mesure dans le requete
 		request.setAttribute("package",p);
 		// transfert a la JSP d'affichage

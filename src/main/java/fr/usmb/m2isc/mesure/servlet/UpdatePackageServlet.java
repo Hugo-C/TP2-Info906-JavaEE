@@ -1,9 +1,7 @@
 package fr.usmb.m2isc.mesure.servlet;
 
-import fr.usmb.m2isc.mesure.ejb.PackageEJB;
-import fr.usmb.m2isc.mesure.jpa.Package;
-import fr.usmb.m2isc.mesure.jpa.Position;
-import fr.usmb.m2isc.mesure.jpa.ProcessState;
+import fr.usmb.m2isc.mesure.ejb.ItemEJB;
+import fr.usmb.m2isc.mesure.jpa.Item;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +20,7 @@ public class UpdatePackageServlet extends HttpServlet {
 
 	// injection de la reference de l'ejb
 	@EJB
-	private PackageEJB ejb;
+	private ItemEJB ejb;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,7 +46,7 @@ public class UpdatePackageServlet extends HttpServlet {
 		String name = request.getParameter("name");
 
 		Position positionRefreshed = new Position(latitude, longitude, name);
-		Package p = ejb.updatePackage(id, positionRefreshed, state);
+		Item p = ejb.updatePackage(id, positionRefreshed, state);
 
 		request.setAttribute("package",p);
 		request.getRequestDispatcher("/showPackage.jsp").forward(request, response);

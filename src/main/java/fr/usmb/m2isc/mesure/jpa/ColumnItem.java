@@ -8,7 +8,7 @@ import java.util.Date;
  * TODO JAVADOC
  */
 @Entity
-public class Column implements Serializable {
+public class ColumnItem implements Serializable {
 	/**
 	 * Identifiant de la mesure (unique).
 	 *
@@ -21,18 +21,22 @@ public class Column implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	@OneToOne
-	private Column prevColumn;
+	private ColumnItem prevColumnItem;
 	@OneToOne
-	private Column nextColumn;
+	private ColumnItem nextColumnItem;
 
 
-	public Column() {
+	public ColumnItem() {
 		this.creationDate = new Date();
 	}
 
-	public Column(String name) {
+	public ColumnItem(String name) {
 		this.name = name;
 		this.creationDate = new Date();
+	}
+
+	public String toString(){
+		return name;
 	}
 
 	public String getName() {
@@ -59,19 +63,19 @@ public class Column implements Serializable {
 		this.id = id;
 	}
 
-	public Column getPrevColumn() {
-		return prevColumn;
+	public ColumnItem getPrevColumnItem() {
+		return prevColumnItem;
 	}
 
-	public void setPrevColumn(Column prevColumn) {
-		this.prevColumn = prevColumn;
+	public void setPrevColumnItem(ColumnItem prevColumnItem) {
+		this.prevColumnItem = prevColumnItem;
 	}
 
-	public Column getNextColumn() {
-		return nextColumn;
+	public ColumnItem getNextColumnItem() {
+		return nextColumnItem;
 	}
 
-	public void setNextColumn(Column nextColumn) {
-		this.nextColumn = nextColumn;
+	public void setNextColumnItem(ColumnItem nextColumnItem) {
+		this.nextColumnItem = nextColumnItem;
 	}
 }

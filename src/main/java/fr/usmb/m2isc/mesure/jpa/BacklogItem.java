@@ -24,11 +24,13 @@ public class BacklogItem implements Serializable {
 	private int estimation;
 	private String description;
 //	private ArrayList<String> comments;  // TODO handle comments
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "columnId")
-	private Column column;
+	private ColumnItem columnItem;
 
 	public BacklogItem() {
+	    this.name = "";
+	    this.description = "";
 		this.creationDate = new Date();
 	}
 	
@@ -40,7 +42,13 @@ public class BacklogItem implements Serializable {
         this.creationDate = new Date();
 	}
 
-	public String toString(){ return "[ name : " + name + ", priority : " + priority + ", estimation : " + estimation + ", description : " + description + ", date : " + creationDate + " ]"; }
+    public String toString() {
+        String res = "name : " + name + ", priority : " + priority + ", estimation : "
+                + estimation + ", description : " + description + ", date : "
+                + creationDate;
+        if (columnItem != null) res += ", colonne : " + columnItem.toString();
+        return "[ " + res + " ]";
+    }
 
 	public String getName() {
 		return name;
@@ -90,11 +98,11 @@ public class BacklogItem implements Serializable {
 		this.id = id;
 	}
 
-	public Column getColumn() {
-		return column;
+	public ColumnItem getColumnItem() {
+		return columnItem;
 	}
 
-	public void setColumn(Column column) {
-		this.column = column;
+	public void setColumnItem(ColumnItem columnItem) {
+		this.columnItem = columnItem;
 	}
 }

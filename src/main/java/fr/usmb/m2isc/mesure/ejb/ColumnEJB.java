@@ -1,7 +1,7 @@
 package fr.usmb.m2isc.mesure.ejb;
 
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
-import fr.usmb.m2isc.mesure.jpa.Column;
+import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -24,27 +24,27 @@ public class ColumnEJB {
 	public ColumnEJB() {
 	}
 
-	public Column addColumn(Column c) {
+	public ColumnItem addColumn(ColumnItem c) {
 		em.persist(c);
 		return c;
 	}
 
-	public Column findColumn(long id) {
-		return em.find(Column.class, id);
+	public ColumnItem findColumn(long id) {
+		return em.find(ColumnItem.class, id);
 	}
 
-	public Column findColumnByName(String name) {
-        return em.createQuery("SELECT c FROM Column c WHERE name LIKE :columnName", Column.class)
+	public ColumnItem findColumnByName(String name) {
+        return em.createQuery("SELECT c FROM ColumnItem c WHERE c.name LIKE :columnName", ColumnItem.class)
                                         .setParameter("columnName", name).getSingleResult();
     }
 
-	public HashMap<Column, BacklogItem> findAllBacklogItemByColumn() {
-		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE column IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);
+	public HashMap<ColumnItem, BacklogItem> findAllBacklogItemByColumn() {
+		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE ColumnItem IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);
 		List items =  rq.getResultList();
-		HashMap<Column, BacklogItem> res = new HashMap<>();
+		HashMap<ColumnItem, BacklogItem> res = new HashMap<>();
 		for (Object item : items) {
 			BacklogItem pbi = (BacklogItem) item;
-			res.put(pbi.getColumn(), pbi);
+			res.put(pbi.getColumnItem(), pbi);
 		}
 		return res;
 	}

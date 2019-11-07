@@ -33,6 +33,11 @@ public class ColumnEJB {
 		return em.find(Column.class, id);
 	}
 
+	public Column findColumnByName(String name) {
+        return em.createQuery("SELECT c FROM Column c WHERE name LIKE :columnName", Column.class)
+                                        .setParameter("columnName", name).getSingleResult();
+    }
+
 	public HashMap<Column, BacklogItem> findAllBacklogItemByColumn() {
 		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE column IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);
 		List items =  rq.getResultList();

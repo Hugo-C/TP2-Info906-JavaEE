@@ -24,9 +24,12 @@ public class BacklogItem implements Serializable {
 	private int estimation;
 	private String description;
 //	private ArrayList<String> comments;  // TODO handle comments
+	@ManyToOne
+	@JoinColumn(name = "columnId")
+	private Column column;
 
 	public BacklogItem() {
-        this.creationDate = new Date();
+		this.creationDate = new Date();
 	}
 	
 	public BacklogItem(String name, int priority, int estimation, String description) {
@@ -85,5 +88,13 @@ public class BacklogItem implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Column getColumn() {
+		return column;
+	}
+
+	public void setColumn(Column column) {
+		this.column = column;
 	}
 }

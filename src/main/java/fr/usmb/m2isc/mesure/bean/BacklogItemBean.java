@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 
+import java.util.List;
+
 @ManagedBean(name="backlogItemBean")
 @RequestScoped
 public class BacklogItemBean {
@@ -33,7 +35,8 @@ public class BacklogItemBean {
             backlogItem.setEstimation(1);
             backlogItem.setDescription("");
             backlogItem = backlogItemEJB.addBacklogItem(backlogItem);
-            context.addMessage(null, new FacesMessage("Kullanıcı Başarı ile Eklendi..."));
+            List<BacklogItem> items = backlogItemEJB.findAllBacklogItem();
+            System.out.println("number of pbi : " + items.size());
             return "index.xhtml?faces-redirect=true";
         }
         catch(Exception e)

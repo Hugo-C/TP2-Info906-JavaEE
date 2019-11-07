@@ -30,11 +30,8 @@ public class BacklogItemBean {
     public String addBacklogItem(){
         try
         {
-            System.out.println("wow");
-            backlogItem.setPriority(1);
-            backlogItem.setEstimation(1);
-            backlogItem.setDescription("");
             backlogItem = backlogItemEJB.addBacklogItem(backlogItem);
+            System.out.println(backlogItem.toString());
             List<BacklogItem> items = backlogItemEJB.findAllBacklogItem();
             System.out.println("number of pbi : " + items.size());
             return "index.xhtml?faces-redirect=true";

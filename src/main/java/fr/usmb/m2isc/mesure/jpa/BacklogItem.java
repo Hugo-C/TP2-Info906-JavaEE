@@ -26,6 +26,7 @@ public class BacklogItem implements Serializable {
 //	private ArrayList<String> comments;  // TODO handle comments
 
 	public BacklogItem() {
+        this.creationDate = new Date();
 	}
 	
 	public BacklogItem(String name, int priority, int estimation, String description) {
@@ -33,8 +34,10 @@ public class BacklogItem implements Serializable {
 		this.priority = priority;
 		this.estimation = estimation;
 		this.description = description;
-		this.creationDate = new Date();
+        this.creationDate = new Date();
 	}
+
+	public String toString(){ return "[ name : " + name + ", priority : " + priority + ", estimation : " + estimation + ", description : " + description + ", date : " + creationDate + " ]"; }
 
 	public String getName() {
 		return name;

@@ -10,7 +10,14 @@
 	<h:body>
 	  <h2>Enregistrer un item</h2><br/>
 	  <h:form>
-		  <h:inputText value="#{backlogItemBean.backlogItem.name}"></h:inputText>
+		  Nom : <h:inputText value="#{backlogItemBean.backlogItem.name}"></h:inputText>
+		  <br/>
+		  Priorité : <h:inputText value="#{backlogItemBean.backlogItem.priority}"></h:inputText>
+		  <br/>
+		  Estimation : <h:inputText value="#{backlogItemBean.backlogItem.estimation}"></h:inputText>
+		  <br/>
+          Description : <h:inputText value="#{backlogItemBean.backlogItem.description}"></h:inputText>
+		  <br/>
 		  <h:commandButton value="Enregistrer" action="#{backlogItemBean.addBacklogItem()}"></h:commandButton>
 	  </h:form>
 	</h:body>

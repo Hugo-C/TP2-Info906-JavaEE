@@ -45,6 +45,7 @@ public class BacklogItemBean {
             }catch (Exception e){
                 System.out.println("Column create");
                 c = new ColumnItem(columnName);
+                columnEJB.addColumn(c);
             }
             backlogItem.setColumnItem(c);
             backlogItem = backlogItemEJB.addBacklogItem(backlogItem);

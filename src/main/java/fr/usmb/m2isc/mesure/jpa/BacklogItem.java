@@ -24,8 +24,7 @@ public class BacklogItem implements Serializable {
 	private int estimation;
 	private String description;
 //	private ArrayList<String> comments;  // TODO handle comments
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "columnId")
+	@ManyToOne
 	private ColumnItem columnItem;
 
 	public BacklogItem() {

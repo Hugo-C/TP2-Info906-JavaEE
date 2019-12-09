@@ -1,17 +1,14 @@
 package fr.usmb.m2isc.mesure.bean;
 
-import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.persistence.NoResultException;
-
 import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
 import fr.usmb.m2isc.mesure.ejb.ColumnEJB;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 @ManagedBean(name="backlogItemBean")

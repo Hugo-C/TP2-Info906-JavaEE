@@ -23,7 +23,6 @@ public class BacklogItem implements Serializable {
 	private int priority;
 	private int estimation;
 	private String description;
-//	private ArrayList<String> comments;  // TODO handle comments
 	@ManyToOne
 	private ColumnItem columnItem;
 
@@ -42,10 +41,10 @@ public class BacklogItem implements Serializable {
 	}
 
     public String toString() {
-        String res = "name : " + name + ", priority : " + priority + ", estimation : "
-                + estimation + ", description : " + description + ", date : "
+        String res = "id: " + id + " name: " + name + ", priority: " + priority + ", estimation: "
+                + estimation + ", description: " + description + ", date: "
                 + creationDate;
-        if (columnItem != null) res += ", colonne : " + columnItem.toString();
+        if (columnItem != null) res += ", colonne: " + columnItem.toString();
         return "[ " + res + " ]";
     }
 

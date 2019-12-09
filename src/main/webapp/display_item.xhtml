@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<head>
+    <title>Item</title>
+</head>
+<body>
+    <p>Item selectionné:
+        <h:outputText value="#{commentaryBean.backlogItem.id}"/>
+    </p>
+    <p>Nom:
+        <h:outputText value="#{commentaryBean.backlogItem.name}"/>
+    </p>
+    <p>Priorité:
+        <h:outputText value="#{commentaryBean.backlogItem.priority}"/>
+    </p>
+    <p>Estimation:
+        <h:outputText value="#{commentaryBean.backlogItem.estimation}"/>
+    </p>
+    <p>Description:
+        <h:outputText value="#{commentaryBean.backlogItem.description}"/>
+    </p>
+    <p>Date de création:
+        <h:outputText value="#{commentaryBean.backlogItem.creationDate}"/>
+    </p>
+    <h4>Previous comments:</h4>
+    <h:dataTable value="#{commentaryBean.comments}" var="comment" >
+        <h:column>
+            <f:facet name="header"><h:outputText value="Name"/></f:facet>
+            <h:outputText value="#{comment.username}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header"><h:outputText value="Comment"/></f:facet>
+            <h:outputText value="#{comment.content}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header"><h:outputText value="Date"/></f:facet>
+            <h:outputText value="#{comment.creationDate}" />
+        </h:column>
+    </h:dataTable>
+    <br/>
+    <h2>Enregistrer un nouveau commentaire:</h2><br/>
+    <h:form>
+        Commentaire : <h:inputText value="#{commentaryBean.content}"/>
+        <br/>
+        <h:commandButton value="Enregistrer" action="#{commentaryBean.addCommentary()}"></h:commandButton>
+    </h:form>
+</body>
+</html>

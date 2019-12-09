@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+    <title>Create item</title>
+</head>
+<body>
+<h2>Enregistrer un item</h2><br/>
+<h:form>
+    Nom : <h:inputText value="#{backlogItemBean.backlogItem.name}"></h:inputText>
+    <br/>
+    Priorité : <h:inputText value="#{backlogItemBean.backlogItem.priority}"></h:inputText>
+    <br/>
+    Estimation : <h:inputText value="#{backlogItemBean.backlogItem.estimation}"></h:inputText>
+    <br/>
+    Description : <h:inputText value="#{backlogItemBean.backlogItem.description}"></h:inputText>
+    <br/>
+    Colonne : <h:inputText value="#{backlogItemBean.columnName}"></h:inputText>
+    <br/>
+    <h:commandButton value="Enregistrer" action="#{backlogItemBean.addBacklogItem()}"></h:commandButton>
+</h:form>
+</body>
+</html>

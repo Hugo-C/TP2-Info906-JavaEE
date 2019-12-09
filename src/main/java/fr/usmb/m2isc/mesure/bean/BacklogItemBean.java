@@ -52,7 +52,7 @@ public class BacklogItemBean {
             List<BacklogItem> items = backlogItemEJB.findAllBacklogItem();
             System.out.println("number of pbi : " + items.size());
             System.out.println(backlogItem.toString());
-            return "index.xhtml?faces-redirect=true";
+            return "create_item.xhtml?faces-redirect=true";
         }
         catch(Exception e)
         {

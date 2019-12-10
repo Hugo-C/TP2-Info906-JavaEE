@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,13 +39,18 @@ public class ColumnEJB {
                                         .setParameter("columnName", name).getSingleResult();
     }
 
-	public HashMap<ColumnItem, BacklogItem> findAllBacklogItemByColumn() {
-		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE ColumnItem IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);
+	public HashMap<ColumnItem, ArrayList<BacklogItem>> findAllBacklogItemByColumn() {
+		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE m.columnItem IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);
 		List items =  rq.getResultList();
-		HashMap<ColumnItem, BacklogItem> res = new HashMap<>();
+		HashMap<ColumnItem, ArrayList<BacklogItem>> res = new HashMap<>();
 		for (Object item : items) {
 			BacklogItem pbi = (BacklogItem) item;
-			res.put(pbi.getColumnItem(), pbi);
+			ArrayList<BacklogItem> backlogItems = res.get(pbi.getColumnItem());
+			if( backlogItems == null){
+				backlogItems = new ArrayList<>();
+			}
+			backlogItems.add(pbi);
+			res.put(pbi.getColumnItem(), backlogItems);
 		}
 		return res;
 	}

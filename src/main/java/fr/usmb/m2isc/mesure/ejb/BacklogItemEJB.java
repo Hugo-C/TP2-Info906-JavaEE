@@ -29,6 +29,9 @@ public class BacklogItemEJB {
 	}
 
 	public void removeBacklogItem(BacklogItem backlogItem) {
+		if (!em.contains(backlogItem)) {
+			backlogItem = em.merge(backlogItem);
+		}
 		em.remove(backlogItem);
 	}
 

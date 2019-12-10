@@ -27,6 +27,7 @@ public class ColumnBean {
 
     private String columnName;
     private ColumnItem nextColumnName;
+    private String columnToRemove;
 
     public ColumnBean() {
 
@@ -53,10 +54,27 @@ public class ColumnBean {
         }
     }
 
-    public ArrayList<BacklogItem> GetBacklogItemByColumn(ColumnItem column){
+    public ArrayList<BacklogItem> getBacklogItemByColumn(ColumnItem column){
         ArrayList<BacklogItem> backlogItems = columnsMap.get(column);
         if (backlogItems != null) return backlogItems;
         else return new ArrayList<BacklogItem>();
+    }
+
+    public String removeColumn(){
+        if (columnToRemove != null){
+            ColumnItem c = columnEJB.findColumnByName(columnToRemove);
+            ColumnItem prev = c.getPrevColumnItem();
+            ColumnItem next = c.getNextColumnItem();
+
+            if(prev != null){
+                prev.setNextColumnItem(next);
+            }
+            if(next != null){
+                next.setPrevColumnItem(prev);
+            }
+            columnEJB.removeColumn(c);
+        }
+        return "display_columns.xhtml?faces-redirect=true";
     }
 
     public ArrayList<ColumnItem> getColumns() {
@@ -81,5 +99,13 @@ public class ColumnBean {
 
     public void setNextColumnName(ColumnItem nextColumnName) {
         this.nextColumnName = nextColumnName;
+    }
+
+    public String getColumnToRemove() {
+        return columnToRemove;
+    }
+
+    public void setColumnToRemove(String columnToRemove) {
+        this.columnToRemove = columnToRemove;
     }
 }

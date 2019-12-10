@@ -83,4 +83,11 @@ public class ColumnEJB {
 		}
 		return res;
 	}
+
+	public void removeColumn(ColumnItem c){
+		if (!em.contains(c)) {
+			c = em.merge(c);
+		}
+		em.remove(c);
+	}
 }

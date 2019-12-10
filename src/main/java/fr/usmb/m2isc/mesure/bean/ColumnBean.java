@@ -34,13 +34,8 @@ public class ColumnBean {
 
     @PostConstruct
     public void init() {
-        try{
-            columnsMap = columnEJB.findAllBacklogItemByColumn();
-            columns = new ArrayList<ColumnItem>();
-            columns.addAll(columnsMap.keySet());
-        }
-        catch (Exception ignored){
-        }
+        columnsMap = columnEJB.findAllBacklogItemByColumn();
+        columns = columnEJB.findAllColumnsSorted();
     }
 
     public String addColumn(){

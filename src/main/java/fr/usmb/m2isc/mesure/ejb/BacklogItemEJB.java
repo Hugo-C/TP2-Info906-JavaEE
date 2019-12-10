@@ -28,6 +28,10 @@ public class BacklogItemEJB {
 		return backlogItem;
 	}
 
+	public void removeBacklogItem(BacklogItem backlogItem) {
+		em.remove(backlogItem);
+	}
+
 	public BacklogItem findBacklogItem(long id) {
 		return em.find(BacklogItem.class, id);
 	}

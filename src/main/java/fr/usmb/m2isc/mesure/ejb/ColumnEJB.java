@@ -26,6 +26,11 @@ public class ColumnEJB {
 	}
 
 	public ColumnItem addColumn(ColumnItem c) {
+		if (c.getPrevColumnItem() == null){
+			ArrayList<ColumnItem> columnsSorted = findAllColumnsSorted();
+			if(columnsSorted.size() > 0)
+				c.setNextColumnItem(columnsSorted.get(0));
+		}
 		em.persist(c);
 		return c;
 	}
@@ -38,6 +43,30 @@ public class ColumnEJB {
         return em.createQuery("SELECT c FROM ColumnItem c WHERE c.name LIKE :columnName", ColumnItem.class)
                                         .setParameter("columnName", name).getSingleResult();
     }
+
+	public List<ColumnItem> findAllColumns() {
+		return em.createQuery("SELECT c FROM ColumnItem c", ColumnItem.class).getResultList();
+	}
+
+	public ArrayList<ColumnItem> findAllColumnsSorted() {
+		List<ColumnItem> columns = findAllColumns();
+		ArrayList<ColumnItem> columnsSorted = new ArrayList<>();
+
+		ColumnItem columnItem = null;
+		// retrieve the first column
+		for (ColumnItem c : columns){
+			if (c.getPrevColumnItem() == null){
+				columnItem = c;
+				break;
+			}
+		}
+		while (columnItem != null) {
+			columnsSorted.add(columnItem);
+			columnItem = columnItem.getNextColumnItem();
+		}
+		assert columnsSorted.size() == columns.size();
+		return columnsSorted;
+	}
 
 	public HashMap<ColumnItem, ArrayList<BacklogItem>> findAllBacklogItemByColumn() {
 		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m WHERE m.columnItem IS NOT NULL ORDER BY m.priority DESC", BacklogItem.class);

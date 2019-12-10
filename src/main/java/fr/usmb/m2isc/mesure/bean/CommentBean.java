@@ -57,7 +57,6 @@ public class CommentBean {
         reloadComments();
     }
 
-
     public BacklogItem getBacklogItem() {
         return backlogItem;
     }

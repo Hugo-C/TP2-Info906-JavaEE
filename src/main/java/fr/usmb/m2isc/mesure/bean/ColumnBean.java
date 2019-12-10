@@ -30,15 +30,8 @@ public class ColumnBean {
 
     @PostConstruct
     public void init() {
-        try{
-            columnsMap = columnEJB.findAllBacklogItemByColumn();
-            columns = new ArrayList<ColumnItem>();
-            for (ColumnItem c : columnsMap.keySet()){
-                columns.add(c);
-            }
-        }
-        catch (Exception e){
-        }
+        columnsMap = columnEJB.findAllBacklogItemByColumn();
+        columns = columnEJB.findAllColumnsSorted();
     }
 
     public ArrayList<BacklogItem> GetBacklogItemByColumn(ColumnItem column){

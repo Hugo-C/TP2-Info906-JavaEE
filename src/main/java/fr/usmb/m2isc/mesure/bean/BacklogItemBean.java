@@ -5,7 +5,9 @@ import fr.usmb.m2isc.mesure.ejb.ColumnEJB;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Init;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;

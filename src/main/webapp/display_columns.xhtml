@@ -3,7 +3,7 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xml:lang="en" lang="en">
 <head>
     <title>Display columns</title>
@@ -28,5 +28,16 @@
         </ui:repeat>
     </tr>
 </table>
+<br/>
+Ajouter une colonne
+<h:form>
+    Nom : <h:inputText value="#{columnBean.columnName}"/>
+    <br/>
+    <h:selectOneListbox id="list"
+                        value="#{columnBean.nextColumnName}">
+        <f:selectItems value="#{columnBean.columns}"/>
+    </h:selectOneListbox>
+    <h:commandButton value="Ajouter" action="#{columnBean.addColumn()}"/>
+</h:form>
 </body>
 </html>

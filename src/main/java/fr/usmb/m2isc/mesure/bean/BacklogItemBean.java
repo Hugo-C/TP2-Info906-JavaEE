@@ -58,23 +58,6 @@ public class BacklogItemBean {
         }
     }
 
-//    public String deleteUser(Users getUser){
-//        try
-//        {
-//            userEJB.deleteUsers(getUser);
-//            userList = userEJB.allUsers();
-//
-//            context.addMessage(null, new FacesMessage("Kullanıcı Başarı ile Silindi..."));
-//            return "index.xhtml?faces-redirect=true";
-//        }
-//        catch(Exception e)
-//        {
-//            context.addMessage(null, new FacesMessage("Kullanıcı Silinirken Hata Oluştu... \n "+e));
-//            return null;
-//        }
-//    }
-
-
     public BacklogItem getBacklogItem() {
         return backlogItem;
     }

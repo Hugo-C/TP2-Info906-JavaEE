@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @ManagedBean(name="columnBean")
 @RequestScoped
@@ -24,6 +25,9 @@ public class ColumnBean {
     private HashMap<ColumnItem, ArrayList<BacklogItem>> columnsMap;
     private ArrayList<ColumnItem> columns;
 
+    private String columnName;
+    private ColumnItem nextColumnName;
+
     public ColumnBean() {
 
     }
@@ -33,11 +37,24 @@ public class ColumnBean {
         try{
             columnsMap = columnEJB.findAllBacklogItemByColumn();
             columns = new ArrayList<ColumnItem>();
-            for (ColumnItem c : columnsMap.keySet()){
-                columns.add(c);
-            }
+            columns.addAll(columnsMap.keySet());
         }
-        catch (Exception e){
+        catch (Exception ignored){
+        }
+    }
+
+    public String addColumn(){
+        try
+        {
+            if (columnName.equals("")) columnName = "Nouvelle colonne";
+            ColumnItem columnItem = new ColumnItem(columnName);
+            if (nextColumnName != null) columnItem.setNextColumnItem(nextColumnName);
+            columnEJB.addColumn(columnItem);
+            return "display_columns.xhtml?faces-redirect=true";
+        }
+        catch(Exception e)
+        {
+            return null;
         }
     }
 
@@ -53,5 +70,21 @@ public class ColumnBean {
 
     public void setColumns(ArrayList<ColumnItem> columns) {
         this.columns = columns;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public ColumnItem getNextColumnName() {
+        return nextColumnName;
+    }
+
+    public void setNextColumnName(ColumnItem nextColumnName) {
+        this.nextColumnName = nextColumnName;
     }
 }

@@ -28,6 +28,8 @@ public class ColumnBean {
     private String columnName;
     private ColumnItem nextColumnName;
     private String columnToRemove;
+    private String columnToRename;
+    private String newColumnName;
 
     public ColumnBean() {
 
@@ -77,6 +79,15 @@ public class ColumnBean {
         return "display_columns.xhtml?faces-redirect=true";
     }
 
+    public String renameColumn(){
+        if (columnToRename != null && newColumnName != null && !newColumnName.isEmpty()){
+            ColumnItem c = columnEJB.findColumnByName(columnToRename);
+            c.setName(newColumnName);
+            // TODO
+        }
+        return "display_columns.xhtml?faces-redirect=true";
+    }
+
     public ArrayList<ColumnItem> getColumns() {
         return columns;
     }
@@ -107,5 +118,21 @@ public class ColumnBean {
 
     public void setColumnToRemove(String columnToRemove) {
         this.columnToRemove = columnToRemove;
+    }
+
+    public String getColumnToRename() {
+        return columnToRename;
+    }
+
+    public void setColumnToRename(String columnToRename) {
+        this.columnToRename = columnToRename;
+    }
+
+    public String getNewColumnName() {
+        return newColumnName;
+    }
+
+    public void setNewColumnName(String newColumnName) {
+        this.newColumnName = newColumnName;
     }
 }

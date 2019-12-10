@@ -40,13 +40,22 @@ Ajouter une colonne
     <h:commandButton value="Ajouter" action="#{columnBean.addColumn()}"/>
 </h:form>
 <br/>
-Supprimé une colonne
+Supprimer une colonne
 <h:form>
     <h:selectOneListbox id="listColumnDelete"
                         value="#{columnBean.columnToRemove}">
         <f:selectItems value="#{columnBean.columns}"/>
     </h:selectOneListbox>
-    <h:commandButton value="Supprimé" action="#{columnBean.removeColumn()}"/>
+    <h:commandButton value="Supprimer" action="#{columnBean.removeColumn()}"/>
+</h:form>
+Renommer une colonne
+<h:form>
+    Nouveau nom : <h:inputText value="#{columnBean.newColumnName}"/>
+    <br/>
+    <h:selectOneListbox value="#{columnBean.columnToRename}">
+        <f:selectItems value="#{columnBean.columns}"/>
+    </h:selectOneListbox>
+    <h:commandButton value="Renommer" action="#{columnBean.renameColumn()}"/>
 </h:form>
 </body>
 </html>

@@ -64,7 +64,7 @@ public class ColumnBean {
     public ArrayList<BacklogItem> getBacklogItemByColumn(ColumnItem column){
         ArrayList<BacklogItem> backlogItems = columnsMap.get(column);
         if (backlogItems != null) return backlogItems;
-        else return new ArrayList<BacklogItem>();
+        else return new ArrayList<>();
     }
 
     public String removeColumn(){
@@ -88,7 +88,7 @@ public class ColumnBean {
         if (columnToRename != null && newColumnName != null && !newColumnName.isEmpty()){
             ColumnItem c = columnEJB.findColumnByName(columnToRename);
             c.setName(newColumnName);
-            // TODO
+            columnEJB.updateColumn(c);
         }
         return "display_columns.xhtml?faces-redirect=true";
     }

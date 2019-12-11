@@ -23,7 +23,7 @@ public class BacklogItem implements Serializable {
 	private int priority;
 	private int estimation;
 	private String description;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private ColumnItem columnItem;
 
 	public BacklogItem() {

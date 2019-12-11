@@ -17,7 +17,7 @@
         <ui:repeat value="#{columnBean.columns}" var="c">
             <td>
                 <h:outputText value="#{c.name}"/>
-                <h:dataTable value="#{columnBean.GetBacklogItemByColumn(c)}" var="item" >
+                <h:dataTable value="#{columnBean.getBacklogItemByColumn(c)}" var="item" >
                     <h:column>
                         <h:outputLink value="item/#{item.id}.xhtml">
                             <h:outputText value="#{item.name}"/>
@@ -38,6 +38,24 @@ Ajouter une colonne
         <f:selectItems value="#{columnBean.columns}"/>
     </h:selectOneListbox>
     <h:commandButton value="Ajouter" action="#{columnBean.addColumn()}"/>
+</h:form>
+<br/>
+Supprimer une colonne
+<h:form>
+    <h:selectOneListbox id="listColumnDelete"
+                        value="#{columnBean.columnToRemove}">
+        <f:selectItems value="#{columnBean.columns}"/>
+    </h:selectOneListbox>
+    <h:commandButton value="Supprimer" action="#{columnBean.removeColumn()}"/>
+</h:form>
+Renommer une colonne
+<h:form>
+    Nouveau nom : <h:inputText value="#{columnBean.newColumnName}"/>
+    <br/>
+    <h:selectOneListbox value="#{columnBean.columnToRename}">
+        <f:selectItems value="#{columnBean.columns}"/>
+    </h:selectOneListbox>
+    <h:commandButton value="Renommer" action="#{columnBean.renameColumn()}"/>
 </h:form>
 </body>
 </html>

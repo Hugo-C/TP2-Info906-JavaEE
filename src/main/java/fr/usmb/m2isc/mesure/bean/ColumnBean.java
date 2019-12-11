@@ -26,7 +26,7 @@ public class ColumnBean {
     private ArrayList<ColumnItem> columns;
 
     private String columnName;
-    private ColumnItem nextColumnName;
+    private String nextColumnName;
 
     public ColumnBean() {
 
@@ -43,7 +43,12 @@ public class ColumnBean {
         {
             if (columnName.equals("")) columnName = "Nouvelle colonne";
             ColumnItem columnItem = new ColumnItem(columnName);
-            if (nextColumnName != null) columnItem.setNextColumnItem(nextColumnName);
+            if (!nextColumnName.equals("")) {
+                for (ColumnItem c : columns){
+                    if(c.getName().equals(nextColumnName))
+                        columnItem.setPrevColumnItem(c);
+                }
+            }
             columnEJB.addColumn(columnItem);
             return "display_columns.xhtml?faces-redirect=true";
         }
@@ -75,11 +80,11 @@ public class ColumnBean {
         this.columnName = columnName;
     }
 
-    public ColumnItem getNextColumnName() {
+    public String getNextColumnName() {
         return nextColumnName;
     }
 
-    public void setNextColumnName(ColumnItem nextColumnName) {
+    public void setNextColumnName(String nextColumnName) {
         this.nextColumnName = nextColumnName;
     }
 }

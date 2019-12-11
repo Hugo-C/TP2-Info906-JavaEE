@@ -5,6 +5,7 @@ import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -28,12 +29,29 @@ public class ColumnEJB {
 	public ColumnItem addColumn(ColumnItem c) {
 		if (c.getPrevColumnItem() == null){
 			ArrayList<ColumnItem> columnsSorted = findAllColumnsSorted();
-			if(columnsSorted.size() > 0)
-				c.setNextColumnItem(columnsSorted.get(0));
-		}
+			if(columnsSorted.size() > 0) {
+                c.setNextColumnItem(columnsSorted.get(0));
+                columnsSorted.get(0).setPrevColumnItem(c);
+            }
+		} else {
+            ColumnItem prevColumn = c.getPrevColumnItem();
+            ColumnItem tmpColumn = prevColumn.getNextColumnItem();
+            prevColumn.setNextColumnItem(c);
+
+            if(tmpColumn != null){
+                c.setNextColumnItem(tmpColumn);
+                tmpColumn.setPrevColumnItem(c);
+                updateColumn(tmpColumn);
+            }
+            updateColumn(prevColumn);
+        }
 		em.persist(c);
 		return c;
 	}
+
+	public ColumnItem updateColumn(ColumnItem c){
+	    return em.merge(c);
+    }
 
 	public ColumnItem findColumn(long id) {
 		return em.find(ColumnItem.class, id);

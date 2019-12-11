@@ -3,6 +3,7 @@ package fr.usmb.m2isc.mesure.jpa;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * TODO JAVADOC
@@ -77,5 +78,18 @@ public class ColumnItem implements Serializable {
 
 	public void setNextColumnItem(ColumnItem nextColumnItem) {
 		this.nextColumnItem = nextColumnItem;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ColumnItem that = (ColumnItem) o;
+		return id == that.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }

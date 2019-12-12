@@ -33,8 +33,10 @@ Ajouter une colonne
 <h:form>
     Nom : <h:inputText value="#{columnBean.columnName}"/>
     <br/>
+    Préciser après quelle colone elle doit être ajoutée :
     <h:selectOneListbox id="list"
                         value="#{columnBean.nextColumnName}">
+        <f:selectItem itemValue="#{null}" itemLabel="--select--" />
         <f:selectItems value="#{columnBean.columns}"/>
     </h:selectOneListbox>
     <h:commandButton value="Ajouter" action="#{columnBean.addColumn()}"/>

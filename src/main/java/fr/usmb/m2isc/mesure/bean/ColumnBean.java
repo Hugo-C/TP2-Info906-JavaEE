@@ -46,7 +46,7 @@ public class ColumnBean {
         {
             if (columnName.equals("")) columnName = "Nouvelle colonne";
             ColumnItem columnItem = new ColumnItem(columnName);
-            if (!nextColumnName.equals("")) {
+            if (nextColumnName != null && !nextColumnName.equals("")) {
                 for (ColumnItem c : columns){
                     if(c.getName().equals(nextColumnName))
                         columnItem.setPrevColumnItem(c);

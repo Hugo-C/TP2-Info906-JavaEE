@@ -24,7 +24,9 @@
         <h:outputText value="#{commentaryBean.backlogItem.description}"/>
     </p>
     <p>Date de création:
-        <h:outputText value="#{commentaryBean.backlogItem.creationDate}"/>
+        <h:outputText value="#{commentaryBean.backlogItem.creationDate}" >
+            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+        </h:outputText>
     </p>
     <h4>Previous comments:</h4>
     <h:dataTable value="#{commentaryBean.comments}" var="comment" >
@@ -38,7 +40,9 @@
         </h:column>
         <h:column>
             <f:facet name="header"><h:outputText value="Date"/></f:facet>
-            <h:outputText value="#{comment.creationDate}" />
+            <h:outputText value="#{comment.creationDate}" >
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+            </h:outputText>
         </h:column>
     </h:dataTable>
     <br/>

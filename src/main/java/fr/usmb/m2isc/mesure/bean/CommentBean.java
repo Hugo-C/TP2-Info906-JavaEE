@@ -4,12 +4,14 @@ import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
 import fr.usmb.m2isc.mesure.ejb.CommentEJB;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.Comment;
+import fr.usmb.m2isc.mesure.servlet.CookieHelper;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -51,7 +53,12 @@ public class CommentBean {
 
 
     public void addCommentary() {
-        Comment c = new Comment("Default username", content, backlogItem);
+        Cookie usernameCookie = CookieHelper.getCookie(UserBean.USERNAME_COOKIE_NAME);  // expire after web browser close
+        String username = "Anonymous";
+        if (usernameCookie != null){
+            username = usernameCookie.getValue();
+        }
+        Comment c = new Comment(username, content, backlogItem);
         c = commentEJB.addCommentary(c);
         System.out.println(c);
         reloadComments();

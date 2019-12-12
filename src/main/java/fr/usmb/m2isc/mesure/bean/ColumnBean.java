@@ -75,9 +75,11 @@ public class ColumnBean {
 
             if(prev != null){
                 prev.setNextColumnItem(next);
+                columnEJB.updateColumn(prev);
             }
             if(next != null){
                 next.setPrevColumnItem(prev);
+                columnEJB.updateColumn(next);
             }
             columnEJB.removeColumn(c);
         }

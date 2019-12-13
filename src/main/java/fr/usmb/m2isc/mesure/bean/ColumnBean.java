@@ -36,6 +36,8 @@ public class ColumnBean {
     private String columnToRename;
     private String newColumnName;
     private String nextColumnName;
+    private String columnToMove;
+    private String nextColumnNameToMove;
 
     public ColumnBean() {
 
@@ -71,6 +73,45 @@ public class ColumnBean {
         {
             return null;
         }
+    }
+
+    public String moveColumn(){
+
+        Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
+        String agency = usernameCookie.getValue();
+
+        if (columnToMove != null && !columnToMove.isEmpty()){
+            ColumnItem columnItem = columnEJB.findColumnByName(columnToMove);
+
+            if (nextColumnNameToMove != null && !nextColumnNameToMove.equals("")) {
+                for (ColumnItem c : columns) {
+                    if (c.getName().equals(nextColumnNameToMove)) {
+                        columnItem.setPrevColumnItem(c);
+
+                        ColumnItem prevColumn = columnItem.getPrevColumnItem();
+                        ColumnItem tmpColumn = prevColumn.getNextColumnItem();
+                        prevColumn.setNextColumnItem(columnItem);
+
+                        if (tmpColumn != null) {
+                            columnItem.setNextColumnItem(tmpColumn);
+                            tmpColumn.setPrevColumnItem(columnItem);
+                            columnEJB.updateColumn(tmpColumn);
+                        }
+                        columnEJB.updateColumn(prevColumn);
+                    }
+                }
+            }
+            else {
+                ArrayList<ColumnItem> columnsSorted = columnEJB.findAllColumnsSorted(agency);
+                if(columnsSorted.size() > 0) {
+                    columnItem.setNextColumnItem(columnsSorted.get(0));
+                    columnsSorted.get(0).setPrevColumnItem(columnItem);
+                    columnEJB.updateColumn(columnsSorted.get(0));
+                }
+            }
+            columnEJB.updateColumn(columnItem);
+        }
+        return "display_columns.xhtml?faces-redirect=true";
     }
 
     public ArrayList<BacklogItem> getBacklogItemByColumn(ColumnItem column){
@@ -153,5 +194,21 @@ public class ColumnBean {
 
     public void setNewColumnName(String newColumnName) {
         this.newColumnName = newColumnName;
+    }
+
+    public String getColumnToMove() {
+        return columnToMove;
+    }
+
+    public void setColumnToMove(String columnToMove) {
+        this.columnToMove = columnToMove;
+    }
+
+    public String getNextColumnNameToMove() {
+        return nextColumnNameToMove;
+    }
+
+    public void setNextColumnNameToMove(String nextColumnNameToMove) {
+        this.nextColumnNameToMove = nextColumnNameToMove;
     }
 }

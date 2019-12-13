@@ -86,7 +86,7 @@ public class ColumnEJB {
 			columnsSorted.add(columnItem);
 			columnItem = columnItem.getNextColumnItem();
 		}
-		assert columnsSorted.size() == columns.size();
+		//assert columnsSorted.size() == columns.size();
 		return columnsSorted;
 	}
 

@@ -10,13 +10,32 @@ public class Agency {
     @GeneratedValue
     private long id;
     private String name;
-    private ArrayList<BacklogItem> backlog;
 
     public Agency() {
     }
 
     public Agency(String name) {
         this.name = name;
-        this.backlog = new ArrayList<BacklogItem>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

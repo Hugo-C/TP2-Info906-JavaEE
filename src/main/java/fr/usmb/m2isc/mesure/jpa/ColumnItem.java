@@ -25,14 +25,17 @@ public class ColumnItem implements Serializable {
 	private ColumnItem prevColumnItem;
 	@OneToOne
 	private ColumnItem nextColumnItem;
+    @ManyToOne
+    private Agency agency;
 
 
 	public ColumnItem() {
 		this.creationDate = new Date();
 	}
 
-	public ColumnItem(String name) {
+	public ColumnItem(String name, Agency agency) {
 		this.name = name;
+		this.agency = agency;
 		this.creationDate = new Date();
 	}
 
@@ -91,5 +94,13 @@ public class ColumnItem implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	public Agency getAgency() {
+		return agency;
+	}
+
+	public void setAgency(Agency agency) {
+		this.agency = agency;
 	}
 }

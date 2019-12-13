@@ -18,7 +18,7 @@ public class UserBean {
 
     public String login(){
         CookieHelper.setCookie(USERNAME_COOKIE_NAME, loginName, -1);  // expire after web browser close
-        return "display_columns.xhtml?faces-redirect=true";
+        return "manage_agencies.xhtml?faces-redirect=true";
     }
 
     public String getLoginName() {

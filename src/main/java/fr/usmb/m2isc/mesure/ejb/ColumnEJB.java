@@ -1,7 +1,9 @@
 package fr.usmb.m2isc.mesure.ejb;
 
+import fr.usmb.m2isc.mesure.bean.UserBean;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
+import fr.usmb.m2isc.mesure.servlet.CookieHelper;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +29,9 @@ public class ColumnEJB {
 	public ColumnEJB() {
 	}
 
-	public ColumnItem addColumn(ColumnItem c) {
+	public ColumnItem addColumn(ColumnItem c, String agency) {
 		if (c.getPrevColumnItem() == null){
-			ArrayList<ColumnItem> columnsSorted = findAllColumnsSorted();
+			ArrayList<ColumnItem> columnsSorted = findAllColumnsSorted(agency);
 			if(columnsSorted.size() > 0) {
                 c.setNextColumnItem(columnsSorted.get(0));
                 columnsSorted.get(0).setPrevColumnItem(c);
@@ -62,12 +65,13 @@ public class ColumnEJB {
                                         .setParameter("columnName", name).getSingleResult();
     }
 
-	public List<ColumnItem> findAllColumns() {
-		return em.createQuery("SELECT c FROM ColumnItem c", ColumnItem.class).getResultList();
+	public List<ColumnItem> findAllColumns(String agency) {
+		return em.createQuery("SELECT c FROM ColumnItem c WHERE c.agency.name LIKE :agencyName", ColumnItem.class)
+				.setParameter("agencyName", agency).getResultList();
 	}
 
-	public ArrayList<ColumnItem> findAllColumnsSorted() {
-		List<ColumnItem> columns = findAllColumns();
+	public ArrayList<ColumnItem> findAllColumnsSorted(String agency) {
+		List<ColumnItem> columns = findAllColumns(agency);
 		ArrayList<ColumnItem> columnsSorted = new ArrayList<>();
 
 		ColumnItem columnItem = null;

@@ -1,14 +1,18 @@
 package fr.usmb.m2isc.mesure.bean;
 
+import fr.usmb.m2isc.mesure.ejb.AgencyEJB;
 import fr.usmb.m2isc.mesure.ejb.ColumnEJB;
+import fr.usmb.m2isc.mesure.jpa.Agency;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
+import fr.usmb.m2isc.mesure.servlet.CookieHelper;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +25,8 @@ public class ColumnBean {
 
     @EJB
     ColumnEJB columnEJB;
+    @EJB
+    AgencyEJB agencyEJB;
 
     private HashMap<ColumnItem, ArrayList<BacklogItem>> columnsMap;
     private ArrayList<ColumnItem> columns;
@@ -38,21 +44,27 @@ public class ColumnBean {
     @PostConstruct
     public void init() {
         columnsMap = columnEJB.findAllBacklogItemByColumn();
-        columns = columnEJB.findAllColumnsSorted();
+        Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
+        String agency = usernameCookie.getValue();
+        columns = columnEJB.findAllColumnsSorted(agency);
     }
 
     public String addColumn(){
         try
         {
+            Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
+            Agency agency = agencyEJB.findAgencyByName(usernameCookie.getValue());
+
             if (columnName.equals("")) columnName = "Nouvelle colonne";
-            ColumnItem columnItem = new ColumnItem(columnName);
+            ColumnItem columnItem = new ColumnItem(columnName, agency);
             if (nextColumnName != null && !nextColumnName.equals("")) {
                 for (ColumnItem c : columns){
                     if(c.getName().equals(nextColumnName))
                         columnItem.setPrevColumnItem(c);
                 }
             }
-            columnEJB.addColumn(columnItem);
+            columnItem.setAgency(agency);
+            columnEJB.addColumn(columnItem, agency.getName());
             return "display_columns.xhtml?faces-redirect=true";
         }
         catch(Exception e)

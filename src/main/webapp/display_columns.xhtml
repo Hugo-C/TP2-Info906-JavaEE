@@ -66,6 +66,8 @@ Supprimer une colonne
         <f:selectItems value="#{columnBean.columns}"/>
     </h:selectOneListbox>
     <h:commandButton value="Supprimer" action="#{columnBean.removeColumn()}"/>
+    <br/>
+    <h:outputText value="#{columnBean.errorMessage}"/>
 </h:form>
 <br/>
 Renommer une colonne

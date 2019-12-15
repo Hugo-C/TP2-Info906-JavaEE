@@ -39,6 +39,8 @@ public class ColumnBean {
     private String columnToMove;
     private String nextColumnNameToMove;
 
+    private String errorMessage;
+
     public ColumnBean() {
 
     }
@@ -49,6 +51,7 @@ public class ColumnBean {
         Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
         String agency = usernameCookie.getValue();
         columns = columnEJB.findAllColumnsSorted(agency);
+        errorMessage = "";
     }
 
     public String addColumn(){
@@ -123,6 +126,12 @@ public class ColumnBean {
     public String removeColumn(){
         if (columnToRemove != null){
             ColumnItem c = columnEJB.findColumnByName(columnToRemove);
+
+            if (columnsMap.get(c) != null && columnsMap.get(c).size() > 0){
+                errorMessage = "Votre colonne contient des items, donc elle ne peut pas être suppriemr !";
+                return "display_columns.xhtml?faces-redirect=false";
+            }
+
             ColumnItem prev = c.getPrevColumnItem();
             ColumnItem next = c.getNextColumnItem();
 
@@ -210,5 +219,13 @@ public class ColumnBean {
 
     public void setNextColumnNameToMove(String nextColumnNameToMove) {
         this.nextColumnNameToMove = nextColumnNameToMove;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

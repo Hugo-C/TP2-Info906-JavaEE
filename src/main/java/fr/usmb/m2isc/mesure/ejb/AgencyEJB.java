@@ -20,30 +20,33 @@ public class AgencyEJB {
     @PersistenceContext
     private EntityManager em;
 
-    /**
-     * Constructeur sans parametre obligatoire
-     */
+    /** The construct **/
     public AgencyEJB() {
     }
 
+    /** To add a agency **/
     public Agency addAgency(Agency a) {
         em.persist(a);
         return a;
     }
 
+    /** Return the agency associated to the id **/
     public Agency findAgency(long id) {
         return em.find(Agency.class, id);
     }
 
+    /** Return the agency associated to the name **/
     public Agency findAgencyByName(String name) {
         return em.createQuery("SELECT a FROM Agency a WHERE a.name LIKE :agencyName", Agency.class)
                 .setParameter("agencyName", name).getSingleResult();
     }
 
+    /** Return the list of all agencies **/
     public List<Agency> findAllAgencies() {
         return em.createQuery("SELECT a FROM Agency a", Agency.class).getResultList();
     }
 
+    /** Returns the list of all items associated to the agency **/
     public List<ColumnItem> findAllColumns(Agency a) {
         TypedQuery<ColumnItem> rq = em.createQuery("SELECT c FROM ColumnItem c WHERE c.agency = :agency ", ColumnItem.class);
         rq.setParameter("agency", a);
@@ -51,6 +54,7 @@ public class AgencyEJB {
         return res;
     }
 
+    /** To remove a agency **/
     public void removeAgency(Agency a){
         if (!em.contains(a)) {
             a = em.merge(a);

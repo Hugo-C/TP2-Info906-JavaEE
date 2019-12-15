@@ -17,17 +17,17 @@ public class BacklogItemEJB {
 	private EntityManager em;
 
 
-	/**
-	 * Constructeur sans parametre obligatoire
-	 */
+	/** The construct **/
 	public BacklogItemEJB() {
 	}
 
+	/** To add a new backlog item **/
 	public BacklogItem addBacklogItem(BacklogItem backlogItem) {
 		em.persist(backlogItem);
 		return backlogItem;
 	}
 
+	/** To remove a backlog item **/
 	public void removeBacklogItem(BacklogItem backlogItem) {
 		if (!em.contains(backlogItem)) {
 			backlogItem = em.merge(backlogItem);
@@ -35,10 +35,12 @@ public class BacklogItemEJB {
 		em.remove(backlogItem);
 	}
 
+	/** Returns the backlog item associated to the id **/
 	public BacklogItem findBacklogItem(long id) {
 		return em.find(BacklogItem.class, id);
 	}
 
+	/** Returns the list of all backlog items **/
 	public List<BacklogItem> findAllBacklogItem() {
 		TypedQuery<BacklogItem> rq = em.createQuery("SELECT m FROM BacklogItem m ORDER BY m.priority DESC", BacklogItem.class);
 		return rq.getResultList();

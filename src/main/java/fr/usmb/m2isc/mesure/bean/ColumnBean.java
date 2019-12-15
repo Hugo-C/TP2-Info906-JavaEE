@@ -28,23 +28,38 @@ public class ColumnBean {
     @EJB
     AgencyEJB agencyEJB;
 
+    /* The list of all columns with associated backlog items */
     private HashMap<ColumnItem, ArrayList<BacklogItem>> columnsMap;
+    /* The list of all columns of the agency */
     private ArrayList<ColumnItem> columns;
 
+    /* The name of the new column that we want create */
     private String columnName;
+
+    /* The name of the column that we want remove */
     private String columnToRemove;
-    private String columnToRename;
-    private String newColumnName;
+    /* The name of the column which is before the new column that we want create */
     private String nextColumnName;
+
+    /* The name of the column that we want rename */
+    private String columnToRename;
+    /* The new name of the column that we rename */
+    private String newColumnName;
+
+    /* The name of the column that we want move */
     private String columnToMove;
+    /* The name of the column which is before the column that we want move */
     private String nextColumnNameToMove;
 
+    /* The error message when we remove a column that contains items */
     private String errorMessage;
 
+    /** The construct **/
     public ColumnBean() {
 
     }
 
+    /** To init the bean **/
     @PostConstruct
     public void init() {
         columnsMap = columnEJB.findAllBacklogItemByColumn();
@@ -54,20 +69,27 @@ public class ColumnBean {
         errorMessage = "";
     }
 
+    /** To create a column **/
     public String addColumn(){
         try
         {
+            // We get the name of the agency
             Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
             Agency agency = agencyEJB.findAgencyByName(usernameCookie.getValue());
 
+            // We create the column
             if (columnName.equals("")) columnName = "Nouvelle colonne";
             ColumnItem columnItem = new ColumnItem(columnName, agency);
+
+            // We get the column which is before the new column
             if (nextColumnName != null && !nextColumnName.equals("")) {
                 for (ColumnItem c : columns){
                     if(c.getName().equals(nextColumnName))
                         columnItem.setPrevColumnItem(c);
                 }
             }
+
+            //We add the column
             columnItem.setAgency(agency);
             columnEJB.addColumn(columnItem, agency.getName());
             return "display_columns.xhtml?faces-redirect=true";
@@ -78,8 +100,10 @@ public class ColumnBean {
         }
     }
 
+    /** To move a column **/
     public String moveColumn(){
 
+        // We get the name of the agency
         Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
         String agency = usernameCookie.getValue();
 
@@ -117,16 +141,18 @@ public class ColumnBean {
         return "display_columns.xhtml?faces-redirect=true";
     }
 
+    /** To get the array of all items of a column **/
     public ArrayList<BacklogItem> getBacklogItemByColumn(ColumnItem column){
         ArrayList<BacklogItem> backlogItems = columnsMap.get(column);
         if (backlogItems != null) return backlogItems;
         else return new ArrayList<>();
     }
-
+/** To remove a column **/
     public String removeColumn(){
         if (columnToRemove != null){
             ColumnItem c = columnEJB.findColumnByName(columnToRemove);
 
+            // We look at if the column contains items
             if (columnsMap.get(c) != null && columnsMap.get(c).size() > 0){
                 errorMessage = "Votre colonne contient des items, donc elle ne peut pas être suppriemr !";
                 return "display_columns.xhtml?faces-redirect=false";
@@ -148,6 +174,7 @@ public class ColumnBean {
         return "display_columns.xhtml?faces-redirect=true";
     }
 
+    /** To rename a column **/
     public String renameColumn(){
         if (columnToRename != null && newColumnName != null && !newColumnName.isEmpty()){
             ColumnItem c = columnEJB.findColumnByName(columnToRename);

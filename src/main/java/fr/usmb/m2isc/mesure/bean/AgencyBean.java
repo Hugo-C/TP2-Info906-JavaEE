@@ -23,14 +23,19 @@ public class AgencyBean {
     @EJB
     AgencyEJB agencyEJB;
 
+    /* List of all agencies */
     private ArrayList<Agency> agencies;
+    /* The name of the new agency that we create */
     private String agencyName;
+    /* The selected agency */
     private String agencySelected;
 
+    /** The construct **/
     public AgencyBean() {
 
     }
 
+    /** To create a agency **/
     public String addAgency(){
         if (agencyName.equals("")) agencyName = "Nouvelle agence";
         Agency agency = new Agency(agencyName);
@@ -39,11 +44,13 @@ public class AgencyBean {
         return selectAgency();
     }
 
+    /** To select a agency **/
     public String selectAgency(){
         CookieHelper.setCookie("agencySelected", agencySelected, -1);
         return "display_columns.xhtml?faces-redirect=true";
     }
 
+    /** To init the bean **/
     @PostConstruct
     public void init() {
         agencies = new ArrayList<>(agencyEJB.findAllAgencies());

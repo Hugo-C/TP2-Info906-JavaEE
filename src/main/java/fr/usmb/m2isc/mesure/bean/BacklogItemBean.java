@@ -21,8 +21,9 @@ public class BacklogItemBean {
 
     private FacesContext context = FacesContext.getCurrentInstance();
 
+    /* The new backlog item that we create */
     private BacklogItem backlogItem;
-
+    /* The name of the column where we want add the backlog item */
     private String columnName;
 
     @EJB
@@ -32,18 +33,21 @@ public class BacklogItemBean {
     @EJB
     AgencyEJB agencyEJB;
 
+    /** The construct **/
     public BacklogItemBean() {
         backlogItem = new BacklogItem();
         columnName = "TODO";
     }
 
-
+    /** To create a backlog item **/
     public String addBacklogItem(){
         try
         {
+            // We get the name of the agency
             Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
             Agency agency = agencyEJB.findAgencyByName(usernameCookie.getValue());
 
+            // We get the column or if it don't exists, we create it
             if (columnName.equals("")) columnName = "TODO";
             ColumnItem c;
             try{
@@ -53,6 +57,8 @@ public class BacklogItemBean {
                 c = new ColumnItem(columnName, agency);
                 columnEJB.addColumn(c, agency.getName());
             }
+
+            // We add the backlog item
             backlogItem.setColumnItem(c);
             backlogItem = backlogItemEJB.addBacklogItem(backlogItem);
 

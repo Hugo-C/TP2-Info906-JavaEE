@@ -3,7 +3,7 @@ package fr.usmb.m2isc.mesure.ejb;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.Comment;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-@LocalBean
+@Remote
 public class CommentEJB {
 	@PersistenceContext
 	private EntityManager em;

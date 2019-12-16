@@ -1,20 +1,17 @@
 package fr.usmb.m2isc.mesure.ejb;
 
 import fr.usmb.m2isc.mesure.jpa.Agency;
-import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Stateless
-@LocalBean
+@Remote
 public class AgencyEJB {
 
     @PersistenceContext

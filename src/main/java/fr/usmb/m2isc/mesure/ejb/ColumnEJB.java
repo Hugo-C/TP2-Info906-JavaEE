@@ -1,23 +1,19 @@
 package fr.usmb.m2isc.mesure.ejb;
 
-import fr.usmb.m2isc.mesure.bean.UserBean;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
 import fr.usmb.m2isc.mesure.jpa.ColumnItem;
-import fr.usmb.m2isc.mesure.servlet.CookieHelper;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Stateless
-@LocalBean
+@Remote
 public class ColumnEJB {
 	@PersistenceContext
 	private EntityManager em;
@@ -36,6 +32,7 @@ public class ColumnEJB {
                 c.setNextColumnItem(columnsSorted.get(0));
                 columnsSorted.get(0).setPrevColumnItem(c);
             }
+			em.persist(c);
 		} else {
             ColumnItem prevColumn = c.getPrevColumnItem();
             ColumnItem tmpColumn = prevColumn.getNextColumnItem();
@@ -46,9 +43,9 @@ public class ColumnEJB {
                 tmpColumn.setPrevColumnItem(c);
                 updateColumn(tmpColumn);
             }
-            updateColumn(prevColumn);
+			em.persist(c);
+			updateColumn(prevColumn);
         }
-		em.persist(c);
 		return c;
 	}
 

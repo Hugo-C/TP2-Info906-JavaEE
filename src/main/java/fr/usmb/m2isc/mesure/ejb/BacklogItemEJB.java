@@ -1,13 +1,12 @@
 package fr.usmb.m2isc.mesure.ejb;
 
+import fr.usmb.m2isc.mesure.jpa.BacklogItem;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import fr.usmb.m2isc.mesure.jpa.BacklogItem;
-
 import java.util.List;
 
 @Stateless
@@ -33,6 +32,11 @@ public class BacklogItemEJB {
 			backlogItem = em.merge(backlogItem);
 		}
 		em.remove(backlogItem);
+	}
+
+	/** To update an item **/
+	public BacklogItem updateBacklogItem(BacklogItem item){
+		return em.merge(item);
 	}
 
 	/** Returns the backlog item associated to the id **/

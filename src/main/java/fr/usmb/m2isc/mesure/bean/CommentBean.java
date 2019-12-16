@@ -1,8 +1,10 @@
 package fr.usmb.m2isc.mesure.bean;
 
 import fr.usmb.m2isc.mesure.ejb.BacklogItemEJB;
+import fr.usmb.m2isc.mesure.ejb.ColumnEJB;
 import fr.usmb.m2isc.mesure.ejb.CommentEJB;
 import fr.usmb.m2isc.mesure.jpa.BacklogItem;
+import fr.usmb.m2isc.mesure.jpa.ColumnItem;
 import fr.usmb.m2isc.mesure.jpa.Comment;
 import fr.usmb.m2isc.mesure.servlet.CookieHelper;
 
@@ -13,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name="commentaryBean")
@@ -27,6 +30,14 @@ public class CommentBean {
 
     private List<Comment> comments;
 
+    /* The name of the new column that we want create */
+    private String columnSelected;
+
+    /* The list of all columns of the agency */
+    private ArrayList<ColumnItem> columns;
+
+    @EJB
+    ColumnEJB columnEJB;
     @EJB
     BacklogItemEJB backlogItemEJB;
     @EJB
@@ -45,6 +56,10 @@ public class CommentBean {
         backlogItem = backlogItemEJB.findBacklogItem(backlogItemId); // FIXME in case no backlog is found
 
         reloadComments();
+
+        Cookie usernameCookie = CookieHelper.getCookie("agencySelected");  // expire after web browser close
+        String agency = usernameCookie.getValue();
+        columns = columnEJB.findAllColumnsSorted(agency);
     }
 
     private void reloadComments() {
@@ -62,6 +77,12 @@ public class CommentBean {
         c = commentEJB.addCommentary(c);
         System.out.println(c);
         reloadComments();
+    }
+
+    public void moveItem() {
+        ColumnItem c = columnEJB.findColumnByName(columnSelected);
+        backlogItem.setColumnItem(c);
+        backlogItemEJB.updateBacklogItem(backlogItem);
     }
 
     public BacklogItem getBacklogItem() {
@@ -86,5 +107,21 @@ public class CommentBean {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getColumnSelected() {
+        return columnSelected;
+    }
+
+    public void setColumnSelected(String columnSelected) {
+        this.columnSelected = columnSelected;
+    }
+
+    public ArrayList<ColumnItem> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(ArrayList<ColumnItem> columns) {
+        this.columns = columns;
     }
 }

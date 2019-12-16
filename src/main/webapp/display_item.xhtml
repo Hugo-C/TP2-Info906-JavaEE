@@ -32,6 +32,14 @@
             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
         </h:outputText>
     </p>
+    Deplacer vers une autre colone
+    <h:form>
+        <br/>
+        <h:selectOneListbox value="#{commentaryBean.columnSelected}">
+            <f:selectItems value="#{commentaryBean.columns}"/>
+        </h:selectOneListbox>
+        <h:commandButton value="Deplacer" action="#{commentaryBean.moveItem()}"/>
+    </h:form>
     <h4>Previous comments:</h4>
     <h:dataTable value="#{commentaryBean.comments}" var="comment" >
         <h:column>

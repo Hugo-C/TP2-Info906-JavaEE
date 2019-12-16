@@ -154,7 +154,7 @@ public class ColumnBean {
 
             // We look at if the column contains items
             if (columnsMap.get(c) != null && columnsMap.get(c).size() > 0){
-                errorMessage = "Votre colonne contient des items, donc elle ne peut pas être suppriemr !";
+                errorMessage = "Votre colonne contient des items, donc elle ne peut pas être supprimer !";
                 return "display_columns.xhtml?faces-redirect=false";
             }
 
